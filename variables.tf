@@ -20,6 +20,18 @@ variable "sensor_monitoring_interface_name" {
   description = "the sensor(s) monitoring interface name"
 }
 
+variable "gzip_config" {
+  type        = bool
+  default     = false
+  description = "should the configuration be gzipped"
+}
+
+variable "base64_encode_config" {
+  type        = bool
+  default     = false
+  description = "should the configuration be base64 encoded"
+}
+
 variable "sensor_health_check_http_port" {
   type        = string
   default     = "41080"
@@ -45,6 +57,11 @@ variable "subnetwork_monitoring_gateway" {
 }
 
 # Enrichment Service
+variable "enrichment_enabled" {
+  description = "(optional) if cloud enrichment should enabled at time of sensor deployment"
+  type        = string
+  default     = false
+}
 
 variable "enrichment_cloud_provider_name" {
   description = "(optional) the cloud provider name"
@@ -57,16 +74,23 @@ variable "enrichment_cloud_provider_name" {
   }
 }
 
-# Enrichment Service -- Azure
+variable "enrichment_bucket_name" {
+  description = "(optional) the s3 bucket, azure storage container, or gcs bucket name"
+  type        = string
+  default     = ""
+}
 
+# Enrichment Service -- Azure
 variable "enrichment_storage_account_name" {
   description = "(optional) the azure storage account where enrichment data is stored"
   type        = string
   default     = ""
 }
 
-variable "enrichment_storage_container_name" {
-  description = "(optional) the container where enrichment data is stored"
+
+# Enrichment Service -- AWS
+variable "enrichment_bucket_region" {
+  description = "(optional) the region for the s3 enrichment bucket"
   type        = string
   default     = ""
 }
