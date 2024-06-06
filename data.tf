@@ -1,6 +1,6 @@
 data "cloudinit_config" "config" {
-  gzip          = false
-  base64_encode = false
+  gzip          = var.gzip_config
+  base64_encode = var.base64_encode_config
 
   part {
     content_type = "text/cloud-config"
@@ -14,12 +14,12 @@ data "cloudinit_config" "config" {
       mon_subnet       = var.subnetwork_monitoring_cidr
       mon_gateway      = var.subnetwork_monitoring_gateway
 
-      # enrichment service
-      cloud_provider = var.enrichment_cloud_provider_name
-      container_name = var.enrichment_storage_container_name
-
-      # enrichment service - azure
-      storage_account_name = var.enrichment_storage_account_name
+      # Optional - Cloud Enrichment Configuration
+      enrichment_enabled         = var.enrichment_enabled
+      cloud_provider             = var.enrichment_cloud_provider_name
+      bucket_name                = var.enrichment_bucket_name
+      bucket_region              = var.enrichment_bucket_region
+      azure_storage_account_name = var.enrichment_storage_account_name
     })
     filename = "sensor-build.yaml"
   }
