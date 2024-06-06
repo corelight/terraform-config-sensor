@@ -87,7 +87,6 @@ variable "enrichment_storage_account_name" {
   default     = ""
 }
 
-
 # Enrichment Service -- AWS
 variable "enrichment_bucket_region" {
   description = "(optional) the region for the s3 enrichment bucket"

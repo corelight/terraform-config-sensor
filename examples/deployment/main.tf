@@ -7,9 +7,13 @@ locals {
   mon_cidr                 = "10.3.0.0/24"
   mon_gateway              = "10.3.0.1"
 
-  enrichment_cloud_provider         = "azure"
-  enrichment_storage_account_name   = "account-foo"
-  enrichment_storage_container_name = "bucket-bar"
+
+  # Enrichment
+  enrichment_enabled              = "<true | false>"
+  enrichment_cloud_provider       = "<aws | azure | gcp>"
+  enrichment_storage_account_name = "account-foo"
+  enrichment_bucket_name          = "bucket-bar"
+  enrichment_s3_bucket_region     = "us-east-1"
 }
 
 module "sensor_config" {
@@ -24,9 +28,13 @@ module "sensor_config" {
   subnetwork_monitoring_gateway                = local.mon_gateway
 
   # Optional - Enrichment Service
-  enrichment_cloud_provider_name    = local.enrichment_cloud_provider
-  enrichment_storage_container_name = local.enrichment_storage_container_name
+  enrichment_enabled             = local.enrichment_enabled
+  enrichment_cloud_provider_name = local.enrichment_cloud_provider
+  enrichment_bucket_name         = local.enrichment_bucket_name
 
-  # Optional - Enrichment Service Azure
+  # Optional - Enrichment Service Azure Only
   enrichment_storage_account_name = local.enrichment_storage_account_name
+
+  # Optional - Enrichment Service AWS Only
+  enrichment_bucket_region = local.enrichment_s3_bucket_region
 }

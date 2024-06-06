@@ -1,15 +1,3 @@
-locals {
-  enrichment_payload = {
-    "cloud_enrichment.enable" : "true"
-    "cloud_enrichment.cloud_provider" : var.enrichment_cloud_provider_name
-    "cloud_enrichment.bucket_name" : var.enrichment_bucket_name
-    "cloud_enrichment.bucket_region" : var.enrichment_bucket_region
-  }
-
-  full_enrichment_payload = var.enrichment_storage_account_name == "" ? local.enrichment_payload : merge(local.enrichment_payload, { "cloud_enrichment.azure_storage_account" : var.enrichment_storage_account_name })
-
-}
-
 data "cloudinit_config" "config" {
   gzip          = var.gzip_config
   base64_encode = var.base64_encode_config
