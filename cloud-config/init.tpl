@@ -35,7 +35,7 @@ runcmd:
   - corelightctl sensor deploy -v
 %{ if enrichment_enabled && cloud_provider == "aws" ~}
   - |
-    echo '{"cloud_enrichment.enable": "true", "cloud_enrichment.cloud_provider": "aws","cloud_enrichment.bucket_name": "${bucket_name}", "cloud_enrichment.bucket_region": "${bucket_region}"}' | corelightctl sensor cfg put
+    echo '{"cloud_enrichment.enable": "true", "cloud_enrichment.cloud_provider": "aws","cloud_enrichment.bucket_name": "${bucket_name}", "cloud_enrichment.bucket_location": "${bucket_region}"}' | corelightctl sensor cfg put
 %{ endif ~}
 %{ if enrichment_enabled && cloud_provider == "azure" ~}
    - |
