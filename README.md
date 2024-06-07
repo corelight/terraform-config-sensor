@@ -4,7 +4,7 @@ Terraform for Corelight's Sensor Configuration.
 
 ## Usage
 
-```hcl
+```terraform
 module "sensor_config" {
   source = "github.com/corelight/terraform-config-sensor"
 
@@ -17,11 +17,15 @@ module "sensor_config" {
   subnetwork_monitoring_gateway                = "<the instance's monitoring subnetwork gateway IP>"
 
   # Optional - Enrichment Service
-  enrichment_cloud_provider_name    = "<the cloud provider name>"
-  enrichment_storage_container_name = "<name of the enrichment container in the storage account>"
+  enrichment_enabled             = "<if cloud enrichment should enabled at time of sensor deployment>"
+  enrichment_cloud_provider_name = "<the cloud provider name>"
+  enrichment_bucket_name         = "<the s3 bucket, azure storage container, or gcs bucket name>"
 
-  # Optional - Enrichment Service Azure
-  enrichment_storage_account_name   = "<name of the enrichment storage account>"
+  # Optional - Enrichment Service Azure Only
+  enrichment_storage_account_name = "<the azure storage account where enrichment data is stored>"
+
+  # Optional - Enrichment Service AWS Only
+  enrichment_bucket_region = "<the region for the s3 enrichment bucket>"
 }
 ```
 
