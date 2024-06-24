@@ -31,7 +31,6 @@ write_files:
     permissions: '0644'
 
 runcmd:
-  - corelightctl sensor bootstrap -v
   - corelightctl sensor deploy -v
 %{ if enrichment_enabled && cloud_provider == "aws" ~}
   - |
