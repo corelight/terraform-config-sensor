@@ -1,7 +1,10 @@
 #cloud-config
 
 write_files:
-  - content: |
+  - owner: root:root
+    path: /etc/corelight/corelightctl.yaml
+    permissions: '0644'
+    content: |
       sensor:
         api:
           password: ${community_string}
@@ -26,10 +29,6 @@ write_files:
               net: ${probe}
 %{ endfor ~}
 
-    owner: root:root
-    path: /etc/corelight/corelightctl.yaml
-    permissions: '0644'
-
 runcmd:
   - corelightctl sensor deploy -v
 %{ if enrichment_enabled && cloud_provider == "aws" ~}
@@ -37,10 +36,10 @@ runcmd:
     echo '{"cloud_enrichment.enable": "true", "cloud_enrichment.cloud_provider": "aws","cloud_enrichment.bucket_name": "${bucket_name}", "cloud_enrichment.bucket_location": "${bucket_region}"}' | corelightctl sensor cfg put
 %{ endif ~}
 %{ if enrichment_enabled && cloud_provider == "azure" ~}
-   - |
+  - |
     echo '{"cloud_enrichment.enable": "true", "cloud_enrichment.cloud_provider": "azure","cloud_enrichment.bucket_name": "${bucket_name}", "cloud_enrichment.azure_storage_account": "${azure_storage_account_name}"}' | corelightctl sensor cfg put
 %{ endif ~}
 %{ if enrichment_enabled && cloud_provider == "gcp" ~}
-    - |
-    echo '{"cloud_enrichment.enable": "true", "cloud_enrichment.cloud_provider": "gcp","cloud_enrichment.bucket_name": "${bucket_name}"}' | corelightctl sensor cfg put
+  - |
+   echo '{"cloud_enrichment.enable": "true", "cloud_enrichment.cloud_provider": "gcp","cloud_enrichment.bucket_name": "${bucket_name}"}' | corelightctl sensor cfg put
 %{ endif ~}
