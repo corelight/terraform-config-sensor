@@ -43,3 +43,7 @@ runcmd:
   - |
    echo '{"cloud_enrichment.enable": "true", "cloud_enrichment.cloud_provider": "gcp","cloud_enrichment.bucket_name": "${bucket_name}"}' | corelightctl sensor cfg put
 %{ endif ~}
+# TODO: Remove after Software Sensor v27.14.0 is released
+%{ if enrichment_enabled ~}
+  - /usr/local/bin/kubectl rollout restart deployment -n corelight-sensor sensor-core
+%{ endif ~}
