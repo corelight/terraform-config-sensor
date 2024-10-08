@@ -15,10 +15,14 @@ write_files:
         monitoring_interface:
           name: ${mon_int}
           wait: true
-%{ if mon_subnet != "" && mon_gateway != "" ~}
+%{ if health_port != "" ~}
           health_check:
             port: ${health_port}
+%{ endif ~}
+%{ if mon_subnet != "" }
             subnet: ${mon_subnet}
+%{ endif ~}
+%{ if mon_gateway != "" }
             gateway: ${mon_gateway}
 %{ endif ~}
         kubernetes:
@@ -43,7 +47,6 @@ runcmd:
   - |
    echo '{"cloud_enrichment.enable": "true", "cloud_enrichment.cloud_provider": "gcp","cloud_enrichment.bucket_name": "${bucket_name}"}' | corelightctl sensor cfg put
 %{ endif ~}
-# TODO: Remove after Software Sensor v27.14.0 is released
 %{ if enrichment_enabled ~}
   - /usr/local/bin/kubectl rollout restart deployment -n corelight-sensor sensor-core
 %{ endif ~}
