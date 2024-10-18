@@ -16,6 +16,10 @@ module "sensor_config" {
   subnetwork_monitoring_cidr                   = "<the instance's monitoring subnetwork CIDR>"
   subnetwork_monitoring_gateway                = "<the instance's monitoring subnetwork gateway IP>"
 
+  # Optional - Fleet Manager
+  fleet_token = "b1cd099ff22ed8a41abc63929d1db126"
+  fleet_url   = "https://fleet.example.com:1443/fleet/v1/internal/softsensor/websocket"
+
   # Optional - Enrichment Service
   enrichment_enabled             = "<if cloud enrichment should enabled at time of sensor deployment>"
   enrichment_cloud_provider_name = "<the cloud provider name>"
