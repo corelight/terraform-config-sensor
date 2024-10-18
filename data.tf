@@ -14,6 +14,13 @@ data "cloudinit_config" "config" {
       mon_subnet       = var.subnetwork_monitoring_cidr
       mon_gateway      = var.subnetwork_monitoring_gateway
 
+      fleet_token          = var.fleet_token
+      fleet_url            = var.fleet_url
+      fleet_server_sslname = var.fleet_server_sslname
+      fleet_http_proxy     = var.fleet_http_proxy
+      fleet_https_proxy    = var.fleet_https_proxy
+      fleet_no_proxy       = var.fleet_no_proxy
+
       # Optional - Cloud Enrichment Configuration
       enrichment_enabled         = var.enrichment_enabled
       cloud_provider             = var.enrichment_cloud_provider_name

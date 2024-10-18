@@ -32,6 +32,21 @@ write_files:
               port: ${health_port}
               net: ${probe}
 %{ endfor ~}
+%{ if fleet_token != "" && fleet_url != "" ~}
+        pairing:
+          token: ${fleet_token}
+          url: ${fleet_url}
+          server_sslname: ${fleet_server_sslname}
+%{ if fleet_http_proxy != "" ~}
+          http_proxy: ${fleet_http_proxy}
+%{ endif ~}
+%{ if fleet_https_proxy != "" ~}
+          https_proxy: ${fleet_https_proxy}
+%{ endif ~}
+%{ if fleet_no_proxy != "" ~}
+          no_proxy: ${fleet_no_proxy}
+%{ endif ~}
+%{ endif ~}
 
 runcmd:
   - corelightctl sensor deploy -v

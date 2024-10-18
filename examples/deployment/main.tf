@@ -7,10 +7,13 @@ locals {
   mon_cidr                 = "10.3.0.0/24"
   mon_gateway              = "10.3.0.1"
 
+  # Optional - Fleet Manager
+  fleet_token = "b1cd099ff22ed8a41abc63929d1db126"
+  fleet_url   = "https://fleet.example.com:1443/fleet/v1/internal/softsensor/websocket"
 
-  # Enrichment
-  enrichment_enabled              = "<true | false>"
-  enrichment_cloud_provider       = "<aws | azure | gcp>"
+  # Optional - Enrichment Service
+  enrichment_enabled              = false # "<true | false>"
+  enrichment_cloud_provider       = "aws" # "<aws | azure | gcp>"
   enrichment_storage_account_name = "account-foo"
   enrichment_bucket_name          = "bucket-bar"
   enrichment_s3_bucket_region     = "us-east-1"
@@ -19,7 +22,10 @@ locals {
 module "sensor_config" {
   source = "../../"
 
-  fleet_community_string                       = local.community_string
+  fleet_community_string = local.community_string
+  fleet_token            = local.fleet_token
+  fleet_url              = local.fleet_url
+
   sensor_license                               = local.license
   sensor_management_interface_name             = local.mgmt_interface
   sensor_monitoring_interface_name             = local.mon_interface
