@@ -20,13 +20,6 @@ data "cloudinit_config" "config" {
       fleet_http_proxy     = var.fleet_http_proxy
       fleet_https_proxy    = var.fleet_https_proxy
       fleet_no_proxy       = var.fleet_no_proxy
-
-      # Optional - Cloud Enrichment Configuration
-      enrichment_enabled         = var.enrichment_enabled
-      cloud_provider             = var.enrichment_cloud_provider_name
-      bucket_name                = var.enrichment_bucket_name
-      bucket_region              = var.enrichment_bucket_region
-      azure_storage_account_name = var.enrichment_storage_account_name
     })
     filename = "sensor-build.yaml"
   }
