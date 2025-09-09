@@ -60,19 +60,19 @@ variable "fleet_token" {
   type        = string
   default     = ""
   sensitive   = true
-  description = "(optional) the pairing token from the Fleet UI. Must be set if 'fleet_url' is provided"
+  description = "The pairing token from the Fleet UI. Must be set if 'fleet_url' is provided"
 }
 
 variable "fleet_url" {
   type        = string
   default     = ""
-  description = "(optional) the URL of the fleet instance from the Fleet UI. Must be set if 'fleet_token' is provided"
+  description = "The URL of the fleet instance from the Fleet UI. Must be set if 'fleet_token' is provided"
 }
 
 variable "fleet_server_sslname" {
   type        = string
-  default     = "1.broala.fleet.product.corelight.io"
-  description = "(optional) the SSL hostname for the fleet server"
+  default     = ""
+  description = "the SSL hostname for the fleet server"
 
 }
 
@@ -92,42 +92,4 @@ variable "fleet_no_proxy" {
   type        = string
   default     = ""
   description = "(optional) hosts or domains to bypass the proxy for fleet traffic"
-}
-
-# Enrichment Service
-variable "enrichment_enabled" {
-  description = "(optional) if cloud enrichment should enabled at time of sensor deployment"
-  type        = string
-  default     = false
-}
-
-variable "enrichment_cloud_provider_name" {
-  description = "(optional) the cloud provider name"
-  type        = string
-  default     = ""
-
-  validation {
-    condition     = contains(["", "aws", "azure", "gcp"], var.enrichment_cloud_provider_name)
-    error_message = "allowed options: \"aws\", \"azure\", \"gcp\""
-  }
-}
-
-variable "enrichment_bucket_name" {
-  description = "(optional) the s3 bucket, azure storage container, or gcs bucket name"
-  type        = string
-  default     = ""
-}
-
-# Enrichment Service -- Azure
-variable "enrichment_storage_account_name" {
-  description = "(optional) the azure storage account where enrichment data is stored"
-  type        = string
-  default     = ""
-}
-
-# Enrichment Service -- AWS
-variable "enrichment_bucket_region" {
-  description = "(optional) the region for the s3 enrichment bucket"
-  type        = string
-  default     = ""
 }
