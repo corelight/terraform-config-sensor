@@ -19,17 +19,7 @@ module "sensor_config" {
   # Optional - Fleet Manager
   fleet_token = "b1cd099ff22ed8a41abc63929d1db126"
   fleet_url   = "https://fleet.example.com:1443/fleet/v1/internal/softsensor/websocket"
-
-  # Optional - Enrichment Service
-  enrichment_enabled             = "<if cloud enrichment should enabled at time of sensor deployment>"
-  enrichment_cloud_provider_name = "<the cloud provider name>"
-  enrichment_bucket_name         = "<the s3 bucket, azure storage container, or gcs bucket name>"
-
-  # Optional - Enrichment Service Azure Only
-  enrichment_storage_account_name = "<the azure storage account where enrichment data is stored>"
-
-  # Optional - Enrichment Service AWS Only
-  enrichment_bucket_region = "<the region for the s3 enrichment bucket>"
+  fleet_server_sslname = "foo.example.com"
 }
 ```
 
