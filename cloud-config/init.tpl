@@ -50,3 +50,29 @@ write_files:
 
 runcmd:
   - corelightctl sensor deploy -v
+%{ if azure_fips_enabled ~}
+  - |
+    timeout=120
+    elapsed=0
+    while [ $elapsed -lt $timeout ]; do
+      version=$(waagent version 2>/dev/null | grep "Goal state agent:" | awk '{print $NF}')
+      if [ -n "$version" ]; then
+        # Compare versions: convert to comparable format
+        current=$(echo "$version" | awk -F. '{printf "%d%03d%03d%03d\n", $1, $2, $3, $4}')
+        required=$(echo "2.15.0.1" | awk -F. '{printf "%d%03d%03d%03d\n", $1, $2, $3, $4}')
+        if [ "$current" -ge "$required" ]; then
+          echo "waagent Goal state agent version $version is ready"
+          break
+        fi
+      fi
+      echo "Waiting for waagent Goal state agent >= 2.15.0.1, current: $version ($${elapsed}s elapsed)"
+      sleep 5
+      elapsed=$((elapsed + 5))
+    done
+    if [ $elapsed -ge $timeout ]; then
+      echo "ERROR: Timeout waiting for waagent Goal state agent >= 2.15.0.1"
+      exit 1
+    fi
+  - fips-mode-setup --enable
+  - reboot
+%{ endif ~}

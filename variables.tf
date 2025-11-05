@@ -93,3 +93,9 @@ variable "fleet_no_proxy" {
   default     = ""
   description = "(optional) hosts or domains to bypass the proxy for fleet traffic"
 }
+
+variable "azure_fips_enabled" {
+  type        = bool
+  default     = false
+  description = "(optional) enable FIPS mode on Azure instances"
+}

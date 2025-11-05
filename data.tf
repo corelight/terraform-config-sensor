@@ -20,6 +20,8 @@ data "cloudinit_config" "config" {
       fleet_http_proxy     = var.fleet_http_proxy
       fleet_https_proxy    = var.fleet_https_proxy
       fleet_no_proxy       = var.fleet_no_proxy
+
+      azure_fips_enabled = var.azure_fips_enabled
     })
     filename = "sensor-build.yaml"
   }
