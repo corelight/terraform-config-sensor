@@ -11,3 +11,13 @@ tasks:
     desc: Check if the input is formatted
     cmds:
       - terraform fmt -recursive -check -diff .
+
+  test:
+    desc: Run Terraform unit tests
+    cmds:
+      - terraform test
+
+  test:verbose:
+    desc: Run Terraform unit tests with verbose output
+    cmds:
+      - terraform test -verbose

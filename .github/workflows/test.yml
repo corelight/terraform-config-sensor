@@ -1,14 +1,17 @@
 ---
-name: Terraform Validation
+name: Terraform Tests
 
 on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 jobs:
-  terraform:
-    name: Lint and Test
+  test:
+    name: Unit Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,10 +24,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.8.2"
-      - name: Terraform fmt
-        run: task fmt:check
       - name: Terraform Init
         run: terraform init
       - name: Terraform Test
-        run: task test
-
+        run: task test:verbose

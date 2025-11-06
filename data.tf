@@ -25,4 +25,11 @@ data "cloudinit_config" "config" {
     })
     filename = "sensor-build.yaml"
   }
+
+  lifecycle {
+    precondition {
+      condition     = (var.fleet_token == "" && var.fleet_url == "" && var.fleet_server_sslname == "") || (var.fleet_token != "" && var.fleet_url != "" && var.fleet_server_sslname != "")
+      error_message = "Fleet Manager pairing requires all three variables to be set together: fleet_token, fleet_url, and fleet_server_sslname. Either set all three or leave all three empty."
+    }
+  }
 }

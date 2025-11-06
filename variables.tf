@@ -6,7 +6,6 @@ variable "fleet_community_string" {
 
 variable "sensor_license" {
   type        = string
-  sensitive   = true
   description = "path to the Corelight sensor license file"
 }
 
@@ -48,6 +47,11 @@ variable "subnetwork_monitoring_cidr" {
   type        = string
   default     = ""
   description = "(optional) the monitoring subnet for the sensor(s), leaving this empty will result in no sensor.monitoring_interface.health_check section being rendered into user data"
+
+  validation {
+    condition     = var.subnetwork_monitoring_cidr == "" || can(cidrhost(var.subnetwork_monitoring_cidr, 0))
+    error_message = "subnetwork_monitoring_cidr must be a valid CIDR block (e.g., '10.0.0.0/24') or empty."
+  }
 }
 
 variable "subnetwork_monitoring_gateway" {
