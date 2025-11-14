@@ -99,3 +99,15 @@ variable "azure_fips_enabled" {
   default     = false
   description = "(optional) enable FIPS mode on Azure instances"
 }
+
+variable "prometheus_enabled" {
+  type        = bool
+  default     = false
+  description = "(optional) enable Prometheus metrics"
+}
+
+variable "fedramp_mode_enabled" {
+  type        = bool
+  default     = false
+  description = "(optional) enable Fedramp mode"
+}

@@ -9,9 +9,16 @@ write_files:
         api:
           password: ${community_string}
         license_key: ${license}
+%{ if prometheus_enabled}
+        prometheus:
+          enable: true
+%{ endif }
+%{ if fedramp_mode_enabled}
+        fedramp_mode: true
+%{ endif }
         management_interface:
-          name: ${mgmt_int}
-          wait: true
+          - name: ${mgmt_int}
+            wait: true
         monitoring_interface:
           name: ${mon_int}
           wait: true
